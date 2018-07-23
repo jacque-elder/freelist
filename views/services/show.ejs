@@ -1,0 +1,60 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <p class="lead">Contact</p>
+            <div class="list-group">
+                <li class="list-group-item"><%= service.website %></li>
+                <li class="list-group-item"><%= service.email %></li>
+                <li class="list-group-item"><%= service.phone %></li>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="thumbnail">
+                <img class="img-responsive" src="<%= service.image %>">
+                <div class="caption-full">
+                    <h4 class="pull-right">$<%= service.price %> / hour</h4>
+                    <h4><a><%= service.name %></a></h4>
+                    <p><%= service.description %></p>
+                    <p>
+                        <em>Submitted By <%= service.author.username %></em>
+                    </p>
+                    <% if(currentUser && service.author.id.equals(currentUser._id)){ %>
+                        <a class="btn btn-warning" href="/services/<%= service._id %>/edit">Edit</a>
+                        <form class="delete-form" action="/services/<%= service._id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    <% } %>
+                </div>
+            </div>
+            <div class="well">
+                <h4>Reviews</h4>
+                <hr>
+                <% service.reviews.forEach(function(review){ %>
+                    <div class="row">
+                        <div class="col-med-12">
+                            <strong><%= review.author.username %></strong>
+                            <span class="pull-right"><em>Rating: <%= review.rating %> / 5</em></span>
+                            <p><%= review.text %></p>
+                            <% if(currentUser && review.author.id.equals(currentUser._id)){ %>
+                                <a class="btn btn-xs btn-warning" 
+                                   href="/services/<%= service._id %>/reviews/<%= review._id %>/edit">
+                                   Edit
+                                </a>
+                                <form class="delete-form" action="/services/<%= service._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
+                                    <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                                </form>
+                            <% } %>
+                        </div>
+                    </div>
+                <% }) %>
+                <div class="text-right">
+                    <a class="btn btn-success" href="/services/<%= service._id %>/reviews/new">Add New Review</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>
