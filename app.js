@@ -14,7 +14,8 @@ var reviewRoutes    = require("./routes/reviews"),
     serviceRoutes    = require("./routes/services"),
     indexRoutes      = require("./routes/index");
 
-mongoose.connect("mongodb://localhost/freelist_app");
+//mongoose.connect("mongodb://localhost/freelist_app");
+mongoose.connect("mongodb://jacque-elder:52j2-gP4@ds147461.mlab.com:47461/freelist");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
