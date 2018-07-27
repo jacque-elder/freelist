@@ -14,8 +14,8 @@ var reviewRoutes    = require("./routes/reviews"),
     serviceRoutes    = require("./routes/services"),
     indexRoutes      = require("./routes/index");
 
-//mongoose.connect("mongodb://localhost/freelist_app");
-mongoose.connect("mongodb://jacque-elder:52j2-gP4@ds147461.mlab.com:47461/freelist");
+//APP CONFIG
+mongoose.connect(process.env.DATABASEURL);
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -29,6 +29,7 @@ app.use(require("express-session")({
     saveUninitialized: false
 }));
 
+//PASSPORT CONFIG
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
