@@ -13,9 +13,11 @@ var express        = require("express"),
 var reviewRoutes    = require("./routes/reviews"),
     serviceRoutes    = require("./routes/services"),
     indexRoutes      = require("./routes/index");
+    
+var url = process.env.DATABASEURL || "mongodb://localhost/freelist_app";
 
 //APP CONFIG
-mongoose.connect(process.env.DATABASEURL);
+mongoose.connect(url);
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
